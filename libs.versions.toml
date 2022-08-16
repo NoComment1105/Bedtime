@@ -1,0 +1,19 @@
+[versions]
+kotlin = "1.7.10"
+
+kord-extensions = "1.5.5-20220807.195423-18"
+kordx-emoji = "0.6.0"
+logging = "2.1.23"
+logback = "1.2.11"
+detekt = "1.21.0"
+kmongo = "4.7.0"
+
+[libraries]
+kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib-jdk8" }
+kord-extensions = { module = "com.kotlindiscord.kord.extensions:kord-extensions", version.ref = "kord-extensions" }
+kord-extensions-unsafe = { module = "com.kotlindiscord.kord.extensions:unsafe", version.ref = "kord-extensions"}
+kordx-emoji = { module = "dev.kord.x:emoji", version.ref = "kordx-emoji"}
+logback = { module = "ch.qos.logback:logback-classic", version.ref = "logback" }
+logging = { module = "io.github.microutils:kotlin-logging", version.ref = "logging" }
+detekt = { module = "io.gitlab.arturbosch.detekt:detekt-formatting", version.ref = "detekt" }
+kmongo = { module = "org.litote.kmongo:kmongo-coroutine-serialization", version.ref = "kmongo" }
