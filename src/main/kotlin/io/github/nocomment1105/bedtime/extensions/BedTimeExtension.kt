@@ -18,10 +18,8 @@ import com.kotlindiscord.kord.extensions.commands.converters.impl.timestamp
 import com.kotlindiscord.kord.extensions.extensions.Extension
 import com.kotlindiscord.kord.extensions.extensions.ephemeralSlashCommand
 import com.kotlindiscord.kord.extensions.modules.unsafe.annotations.UnsafeAPI
-import com.kotlindiscord.kord.extensions.modules.unsafe.extensions.unsafeSlashCommand
 import com.kotlindiscord.kord.extensions.modules.unsafe.extensions.unsafeSubCommand
 import com.kotlindiscord.kord.extensions.modules.unsafe.types.InitialSlashCommandResponse
-import com.kotlindiscord.kord.extensions.modules.unsafe.types.respondEphemeral
 import com.kotlindiscord.kord.extensions.time.TimestampType
 import com.kotlindiscord.kord.extensions.time.toDiscord
 import com.kotlindiscord.kord.extensions.types.respond
@@ -29,7 +27,6 @@ import com.kotlindiscord.kord.extensions.utils.dm
 import com.kotlindiscord.kord.extensions.utils.scheduling.Scheduler
 import com.kotlindiscord.kord.extensions.utils.scheduling.Task
 import com.kotlindiscord.kord.extensions.utils.waitFor
-import dev.kord.common.entity.DiscordActivityTimestamps
 import dev.kord.common.entity.TextInputStyle
 import dev.kord.core.behavior.channel.createMessage
 import dev.kord.core.behavior.getChannelOf
@@ -38,8 +35,6 @@ import dev.kord.core.behavior.interaction.respondEphemeral
 import dev.kord.core.behavior.interaction.response.createEphemeralFollowup
 import dev.kord.core.behavior.interaction.response.respond
 import dev.kord.core.entity.channel.GuildMessageChannel
-import dev.kord.core.entity.interaction.GlobalApplicationCommandInteraction
-import dev.kord.core.event.interaction.GlobalApplicationCommandInteractionCreateEvent
 import dev.kord.core.event.interaction.ModalSubmitInteractionCreateEvent
 import dev.kord.rest.builder.message.EmbedBuilder
 import dev.kord.rest.builder.message.create.embed
@@ -47,9 +42,6 @@ import dev.kord.rest.builder.message.modify.embed
 import io.github.nocomment1105.bedtime.database.collections.BedTimeCollection
 import io.github.nocomment1105.bedtime.database.entities.BedTime
 import kotlinx.datetime.Clock
-import kotlinx.datetime.Instant
-import java.sql.Timestamp
-import kotlin.time.Duration
 import kotlin.time.Duration.Companion.days
 import kotlin.time.Duration.Companion.minutes
 
@@ -122,6 +114,7 @@ class BedTimeExtension : Extension() {
                                 setEmbed(arguments.bedTime, arguments.dm)
                                 field {
                                     name = "Message"
+                                    @Suppress("MagicNumber") // *Sigh*
                                     value = if (bedTimeMessage.length >= 1024) {
                                         bedTimeMessage.substring(0, 1000)
                                     } else {
@@ -183,14 +176,19 @@ class BedTimeExtension : Extension() {
                                 }
                                 field {
                                     name = "Notify via DM"
-                                    value = if (bedTime.dm) "True." else "False. I will remind you in ${
-                                        event.kord.getGuild(bedTime.guildId!!)
-                                            ?.getChannelOf<GuildMessageChannel>(bedTime.channel!!)?.mention
-                                    }"
+                                    value = if (bedTime.dm) {
+                                        "True."
+                                    } else {
+                                        "False. I will remind you in ${
+                                            event.kord.getGuild(bedTime.guildId!!)
+                                                ?.getChannelOf<GuildMessageChannel>(bedTime.channel!!)?.mention
+                                        }"
+                                    }
                                 }
                                 if (bedTime.bedtimeMessage != null) {
                                     field {
                                         name = "Message"
+                                        @Suppress("MagicNumber") // *More sighs*
                                         value = if (bedTime.bedtimeMessage.length >= 1024) {
                                             bedTime.bedtimeMessage.substring(0, 1000)
                                         } else {
@@ -198,7 +196,6 @@ class BedTimeExtension : Extension() {
                                         }
                                     }
                                 }
-
                             }
                         } else {
                             content = "You have not set up a bed time yet! Set one up now with `/bed-time set`."
@@ -241,7 +238,6 @@ class BedTimeExtension : Extension() {
                             it.channel
                         )
                     )
-
                 } else {
                     kord.getUser(it.userId)?.dm {
                         content = "It's time for bed!\n${

@@ -18,7 +18,7 @@ import org.litote.kmongo.eq
 
 /**
  * This class contains the functions for interacting with the [BedTime] database table.
- * It contains functions for getting, setting and deleting [BedTime] data
+ * It contains functions for getting, setting and deleting [BedTime] data.
  *
  * @since 0.1.0
  * @see getBedtime(userId: Snowflake)
@@ -30,10 +30,10 @@ class BedTimeCollection : KordExKoinComponent {
     private val db: Database by inject()
 
     @PublishedApi
-    internal val collection = db.database.getCollection<BedTime>()
+    internal val collection = db.bedtimeDatabase.getCollection<BedTime>()
 
     /**
-     * Gets the bedtime data for the given user
+     * Gets the bedtime data for the given user.
      *
      * @param userId The user to get the bedtime for
      * @return the bedtime data for the user
@@ -44,7 +44,7 @@ class BedTimeCollection : KordExKoinComponent {
         collection.findOne(BedTime::userId eq userId)
 
     /**
-     * Gets all the bedtime data in the datbase
+     * Gets all the bedtime data in the database.
      *
      * @return the list of bedtime data in the database
      * @author NoComment1105
@@ -54,7 +54,7 @@ class BedTimeCollection : KordExKoinComponent {
         collection.find().toList()
 
     /**
-     * Adds the given [bedtime] to the database
+     * Adds the given [bedtime] to the database.
      *
      * @param bedtime The bedtime data
      * @author NoComment1105
@@ -66,7 +66,7 @@ class BedTimeCollection : KordExKoinComponent {
     }
 
     /**
-     * Clears the bedtime data for the given user
+     * Clears the bedtime data for the given user.
      *
      * @param userId The user to clear the bedtime for
      * @author NoComment1105
@@ -84,5 +84,4 @@ class BedTimeCollection : KordExKoinComponent {
     suspend inline fun updateBedtime(userId: Snowflake, newBedtime: BedTime) {
         collection.updateOne(BedTime::userId eq userId, newBedtime)
     }
-
 }

@@ -21,6 +21,10 @@ suspend fun main() {
             add(::BedTimeExtension)
             add(::HelpExtension)
         }
+
+        presence {
+            watching("the time")
+        }
     }
 
     bot.start()

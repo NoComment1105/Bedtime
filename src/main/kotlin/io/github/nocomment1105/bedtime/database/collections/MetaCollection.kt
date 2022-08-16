@@ -19,7 +19,7 @@ class MetaCollection : KordExKoinComponent {
     private val db: Database by inject()
 
     @PublishedApi
-    internal val collection = db.database.getCollection<Meta>()
+    internal val collection = db.bedtimeDatabase.getCollection<Meta>()
 
     /**
      * Gets the metadata from the database.
@@ -31,7 +31,7 @@ class MetaCollection : KordExKoinComponent {
     suspend inline fun get(): Meta? = collection.findOne()
 
     /**
-     * Set the metadata when the table is first created
+     * Set the metadata when the table is first created.
      *
      * @author NoComment1105
      * @since 0.1.0
@@ -39,7 +39,7 @@ class MetaCollection : KordExKoinComponent {
     suspend inline fun set(meta: Meta) = collection.insertOne(meta)
 
     /**
-     * Update the config metadata in the databse with the new [meta][Meta]
+     * Update the config metadata in the databse with the new [meta][Meta].
      *
      * @author NoComment1105
      * @since 0.1.0

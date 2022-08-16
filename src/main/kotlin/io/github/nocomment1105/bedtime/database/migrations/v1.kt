@@ -11,5 +11,6 @@ package io.github.nocomment1105.bedtime.database.migrations
 
 import org.litote.kmongo.coroutine.CoroutineDatabase
 
+@Suppress("EmptyFunctionBlock", "UnusedPrivateMember")
 suspend fun v1(database: CoroutineDatabase) {
 }

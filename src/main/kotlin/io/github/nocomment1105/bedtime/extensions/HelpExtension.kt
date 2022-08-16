@@ -14,7 +14,6 @@ import com.kotlindiscord.kord.extensions.components.linkButton
 import com.kotlindiscord.kord.extensions.extensions.Extension
 import com.kotlindiscord.kord.extensions.extensions.ephemeralSlashCommand
 import com.kotlindiscord.kord.extensions.types.respond
-import dev.kord.rest.builder.message.create.actionRow
 import dev.kord.rest.builder.message.create.embed
 
 class HelpExtension : Extension() {
@@ -32,12 +31,12 @@ class HelpExtension : Extension() {
                         // TODO when kordx.emoji actually works, add an emoji in places
                         // Fun fact, I did write this a 1am :)
                         description = "Bedtime allows you to set custom times at which you will be reminded to go to " +
-                                "bed. No more getting carried away and oops, it's, uh, 1am.\n\nThe bed-time set command " +
-                                "allows you to set up the time you'd like to go to bed. It takes in a timestamp, you " +
-                                "can generate them at [this site](https://bchaing.github.io/discord-timestamp/).\nIt " +
-                                "allows you to choose whether to sent a DM when it's bedtime or sent a message in the" +
-                                "a channel in a server. Along with this you are able to provide a custom message to " +
-                                "your bed time notification"
+                                "bed. No more getting carried away and oops, it's, uh, 1am.\n\nThe bed-time set " +
+                                "command allows you to set up the time you'd like to go to bed. It takes in a " +
+                                "timestamp, you can generate them at [this site]" +
+                                "(https://bchaing.github.io/discord-timestamp/).\nIt allows you to choose whether to " +
+                                "sent a DM when it's bedtime or sent a message in the channel in a server. Along " +
+                                "with this you are able to provide a custom message to your bed time notification"
                         footer {
                             text = "Created by NoComment#6411"
                         }
@@ -46,7 +45,8 @@ class HelpExtension : Extension() {
                         linkButton {
                             label = "Invite"
                             url =
-                                "https://discord.com/api/oauth2/authorize?client_id=1008676566785597471&permissions=19456&scope=bot%20applications.commands"
+                                "https://discord.com/api/oauth2/authorize?client_id=1008676566785597471&permissions=" +
+                                        "19456&scope=bot%20applications.commands"
                         }
                         linkButton {
                             label = "GitHub"

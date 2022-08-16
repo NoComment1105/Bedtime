@@ -28,7 +28,7 @@ class Database {
     private val client = KMongo.createClient(settings).coroutine
 
     /** The main database. */
-    val database get() = client.getDatabase("BedTime")
+    val bedtimeDatabase get() = client.getDatabase("BedTime")
 
     suspend fun migrate() {
         Migrator.migrate()

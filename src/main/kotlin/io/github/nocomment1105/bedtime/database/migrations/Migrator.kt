@@ -46,7 +46,7 @@ object Migrator : KordExKoinComponent {
                 when (nextVersion) {
                     1 -> ::v1
                     else -> break
-                }(db.database)
+                }(db.bedtimeDatabase)
 
                 logger.info { "Migrated main database to version $nextVersion." }
             } catch (t: Throwable) {
